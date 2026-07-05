@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://transldelta.github.io/transdelta-offline-business-tools/sitemap.xml

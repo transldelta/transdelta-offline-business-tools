@@ -1,0 +1,28 @@
+# TransDelta Offline Business Tools
+
+TransDelta offers three small offline-style productivity products sold on Gumroad.
+
+## Products
+
+- CVCraft — Offline Resume & CV Builder
+  - URL: https://transdelta.gumroad.com/l/cvcraft
+  - Audience: job seekers, students, freelancers, career changers
+  - Summary: Create a clean professional CV without subscription-first online tools.
+
+- DealCraft — Offline Proposal & Quote Builder
+  - URL: https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder
+  - Audience: freelancers, consultants, local service providers, small businesses
+  - Summary: Create client proposals, quotes and business offers with a simple offline-style tool.
+
+- BizBoard — Local Small-Business Dashboard
+  - URL: https://transdelta.gumroad.com/l/bizboard-local-dashboard
+  - Audience: small business owners, local shops, freelancers, solo operators
+  - Summary: Organize simple local business information and tracking in one dashboard.
+
+## Positioning
+
+Practical offline business tools. No subscription. Download once and use anytime.
+
+## Canonical public hub
+
+https://transldelta.github.io/transdelta-offline-business-tools/
