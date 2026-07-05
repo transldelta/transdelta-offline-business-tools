@@ -13,20 +13,17 @@
 
   <style>
     :root{
-      --ink:#0c1628;
+      --ink:#0f172a;
       --muted:#64748b;
-      --soft:#f5f8fc;
+      --soft:#f6f8fb;
       --white:#ffffff;
       --line:#e2e8f0;
       --navy:#07162d;
-      --navy2:#0d2748;
-      --blue:#31bfff;
-      --green:#28c98f;
+      --blue:#2fbfff;
+      --green:#22c98f;
       --purple:#7c5cff;
-      --orange:#ffb547;
-      --red:#ff6b7a;
-      --shadow:0 22px 70px rgba(15,23,42,.14);
-      --radius:28px;
+      --shadow:0 24px 70px rgba(15,23,42,.14);
+      --radius:30px;
     }
 
     *{box-sizing:border-box}
@@ -34,35 +31,21 @@
     body{
       margin:0;
       font-family:Inter,Arial,Helvetica,sans-serif;
-      color:var(--ink);
       background:var(--soft);
+      color:var(--ink);
       line-height:1.6;
-      overflow-x:hidden;
     }
 
+    .wrap{max-width:1220px;margin:0 auto;padding:0 22px}
     a{color:inherit}
-    .wrap{max-width:1240px;margin:0 auto;padding:0 22px}
-    .section{padding:76px 0}
-    .small-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:14px;
-      font-weight:800;
-      background:#eaf7ff;
-      color:#116b96;
-      border:1px solid #cfefff;
-    }
 
     .nav-shell{
       position:sticky;
       top:0;
-      z-index:30;
-      background:rgba(255,255,255,.86);
+      z-index:50;
+      background:rgba(255,255,255,.88);
       backdrop-filter:blur(14px);
-      border-bottom:1px solid rgba(226,232,240,.85);
+      border-bottom:1px solid rgba(226,232,240,.9);
     }
 
     .nav{
@@ -77,20 +60,20 @@
       display:flex;
       align-items:center;
       gap:12px;
-      font-weight:1000;
+      font-weight:900;
       font-size:18px;
     }
 
     .logo{
       width:44px;
       height:44px;
+      border-radius:16px;
       display:grid;
       place-items:center;
-      border-radius:16px;
-      color:#fff;
       background:linear-gradient(135deg,var(--blue),var(--purple));
-      box-shadow:0 16px 34px rgba(49,191,255,.25);
-      font-weight:1000;
+      color:white;
+      font-weight:900;
+      box-shadow:0 14px 32px rgba(47,191,255,.25);
     }
 
     .nav-links{
@@ -106,71 +89,67 @@
       font-size:14px;
       padding:10px 14px;
       border-radius:999px;
-      border:1px solid transparent;
     }
 
     .nav-links a:hover{
       background:#eef6ff;
       color:var(--ink);
-      border-color:#dbeafe;
     }
 
     .hero{
+      background:linear-gradient(135deg,#07162d,#102d52);
+      color:white;
       position:relative;
       overflow:hidden;
-      color:#fff;
-      background:
-        radial-gradient(circle at 15% 10%,rgba(49,191,255,.22),transparent 26%),
-        radial-gradient(circle at 85% 18%,rgba(124,92,255,.24),transparent 24%),
-        linear-gradient(135deg,var(--navy),var(--navy2));
-    }
-
-    .hero:before{
-      content:"";
-      position:absolute;
-      inset:0;
-      opacity:.08;
-      background-image:radial-gradient(rgba(255,255,255,.9) .8px,transparent .8px);
-      background-size:20px 20px;
     }
 
     .hero-grid{
-      position:relative;
-      z-index:2;
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:34px;
+      gap:42px;
       align-items:center;
-      padding:78px 0 128px;
+      padding:78px 0 96px;
     }
 
-    .hero h1{
-      font-size:clamp(42px,6.5vw,86px);
-      line-height:.96;
-      letter-spacing:-2.4px;
-      margin:18px 0;
-      max-width:760px;
-    }
-
-    .hero .lead{
-      color:#d7e8fb;
-      font-size:clamp(18px,2vw,23px);
-      max-width:720px;
-      margin:0;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.18);
+      color:#dff6ff;
+      font-weight:800;
+      font-size:14px;
     }
 
     .dot{
       width:10px;
       height:10px;
       border-radius:50%;
-      background:linear-gradient(135deg,#6ee7ff,#6df7c1);
-      box-shadow:0 0 20px rgba(110,231,255,.9);
+      background:#65e7ff;
+      box-shadow:0 0 18px rgba(101,231,255,.9);
     }
 
-    .hero-cta{
+    h1{
+      font-size:clamp(42px,6vw,82px);
+      line-height:.96;
+      letter-spacing:-2px;
+      margin:20px 0;
+    }
+
+    .lead{
+      color:#d9e8f9;
+      font-size:clamp(18px,2vw,23px);
+      margin:0;
+      max-width:700px;
+    }
+
+    .cta{
       display:flex;
-      flex-wrap:wrap;
       gap:14px;
+      flex-wrap:wrap;
       margin-top:30px;
     }
 
@@ -181,106 +160,84 @@
       text-decoration:none;
       padding:15px 22px;
       border-radius:16px;
-      font-weight:1000;
+      font-weight:900;
       transition:.25s ease;
       border:1px solid transparent;
     }
 
     .btn.primary{
+      background:linear-gradient(135deg,#65e7ff,var(--blue));
       color:#06162a;
-      background:linear-gradient(135deg,#6ee7ff,var(--blue));
-      box-shadow:0 18px 38px rgba(49,191,255,.26);
+      box-shadow:0 16px 38px rgba(47,191,255,.28);
     }
 
     .btn.secondary{
-      color:#fff;
       background:rgba(255,255,255,.09);
       border-color:rgba(255,255,255,.18);
+      color:white;
     }
 
     .btn:hover{transform:translateY(-3px)}
 
-    .hero-badges{
+    .badges{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
       margin-top:22px;
     }
 
-    .hero-badges span{
+    .badges span{
       padding:8px 12px;
       border-radius:999px;
       background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.15);
-      color:#dbeafe;
+      border:1px solid rgba(255,255,255,.14);
+      color:#dceafe;
       font-size:14px;
       font-weight:700;
     }
 
-    .hero-visual{
+    .hero-photo{
       position:relative;
-      min-height:540px;
-      display:grid;
-      place-items:center;
     }
 
-    .visual-frame{
-      width:min(100%,540px);
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:34px;
-      padding:22px;
-      box-shadow:0 34px 90px rgba(0,0,0,.28);
-      backdrop-filter:blur(14px);
-      transform:rotate(-1deg);
-    }
-
-    .visual-frame svg{
-      display:block;
+    .hero-photo img{
       width:100%;
-      height:auto;
+      min-height:470px;
+      object-fit:cover;
+      display:block;
+      border-radius:36px;
+      box-shadow:0 34px 90px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.18);
     }
 
-    .float-card{
+    .photo-card{
       position:absolute;
-      z-index:4;
-      min-width:160px;
-      background:rgba(255,255,255,.98);
+      left:24px;
+      bottom:24px;
+      right:24px;
+      padding:18px;
+      border-radius:24px;
+      background:rgba(255,255,255,.92);
       color:var(--ink);
-      border:1px solid rgba(226,232,240,.9);
-      border-radius:20px;
-      box-shadow:0 20px 50px rgba(0,0,0,.18);
-      padding:14px 16px;
-      animation:bob 4.4s ease-in-out infinite;
+      box-shadow:0 20px 50px rgba(0,0,0,.25);
+      backdrop-filter:blur(12px);
     }
 
-    .float-card strong{display:block;font-size:15px}
-    .float-card span{display:block;color:var(--muted);font-size:13px}
-    .float-card.one{left:0;top:35px}
-    .float-card.two{right:0;top:95px;animation-delay:-1.2s}
-    .float-card.three{left:30px;bottom:22px;animation-delay:-2.4s}
-
-    @keyframes bob{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-12px)}
+    .photo-card strong{
+      display:block;
+      font-size:20px;
+      margin-bottom:4px;
     }
 
-    .hero-wave{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:-1px;
-      line-height:0;
-      z-index:3;
+    .photo-card span{
+      color:var(--muted);
+      font-size:14px;
     }
-
-    .hero-wave svg{display:block;width:100%;height:120px}
-    .hero-wave path{fill:var(--soft)}
 
     .stats{
+      margin-top:-38px;
       position:relative;
-      z-index:10;
-      margin-top:-46px;
+      z-index:5;
     }
 
     .stats-grid{
@@ -290,11 +247,11 @@
     }
 
     .stat{
-      background:#fff;
-      border:1px solid #e8eef7;
+      background:white;
       border-radius:24px;
       padding:22px;
       box-shadow:var(--shadow);
+      border:1px solid #e8eef7;
     }
 
     .stat strong{
@@ -304,21 +261,23 @@
       margin-bottom:8px;
     }
 
-    .stat span{color:var(--muted);font-size:14px}
+    .stat span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    section{
+      padding:76px 0;
+    }
 
     .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:end;
-      gap:20px;
-      flex-wrap:wrap;
       margin-bottom:28px;
     }
 
     h2{
-      font-size:clamp(32px,4.4vw,52px);
+      font-size:clamp(34px,4vw,52px);
       line-height:1.03;
-      letter-spacing:-1.3px;
+      letter-spacing:-1px;
       margin:0;
     }
 
@@ -336,126 +295,52 @@
     }
 
     .product-card{
-      background:#fff;
-      border:1px solid #e7edf7;
+      background:white;
       border-radius:32px;
       overflow:hidden;
       box-shadow:var(--shadow);
+      border:1px solid #e7edf7;
       transition:.25s ease;
     }
 
     .product-card:hover{
       transform:translateY(-7px);
-      box-shadow:0 30px 80px rgba(15,23,42,.18);
+      box-shadow:0 34px 90px rgba(15,23,42,.18);
     }
 
-    .product-visual{
-      min-height:260px;
-      display:grid;
-      place-items:center;
+    .product-card img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .product-body{
       padding:24px;
-      border-bottom:1px solid #edf2f9;
-      position:relative;
-      overflow:hidden;
     }
 
-    .product-visual.cv{background:linear-gradient(135deg,#eaf8ff,#d7efff)}
-    .product-visual.deal{background:linear-gradient(135deg,#ecfff7,#d5fff0)}
-    .product-visual.biz{background:linear-gradient(135deg,#f3efff,#e6dcff)}
-
-    .product-cover{
-      width:230px;
-      height:170px;
-      border-radius:26px;
-      padding:20px;
-      color:#fff;
-      box-shadow:0 24px 60px rgba(15,23,42,.20);
-      transform:rotate(-4deg);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .product-cover:after{
-      content:"";
-      position:absolute;
-      width:180px;
-      height:180px;
-      border-radius:50%;
-      right:-70px;
-      top:-70px;
-      background:rgba(255,255,255,.14);
-    }
-
-    .product-cover.cv{background:linear-gradient(135deg,#1976d2,#47c8ff)}
-    .product-cover.deal{background:linear-gradient(135deg,#047857,#34d399)}
-    .product-cover.biz{background:linear-gradient(135deg,#5b21b6,#9f7aea)}
-
-    .cover-icon{
-      position:relative;
-      z-index:1;
-      width:54px;
-      height:54px;
-      border-radius:18px;
-      background:rgba(255,255,255,.16);
-      display:grid;
-      place-items:center;
-      font-size:30px;
-      margin-bottom:16px;
-    }
-
-    .cover-title{
-      position:relative;
-      z-index:1;
-      font-weight:1000;
-      font-size:27px;
-      line-height:1;
-    }
-
-    .cover-sub{
-      position:relative;
-      z-index:1;
-      color:rgba(255,255,255,.82);
-      font-size:14px;
-      margin-top:9px;
-    }
-
-    .price-badge{
-      position:absolute;
-      right:18px;
-      bottom:18px;
-      z-index:2;
-      background:#fff;
-      color:#0f172a;
-      padding:8px 11px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:1000;
-      box-shadow:0 10px 25px rgba(0,0,0,.16);
-    }
-
-    .product-body{padding:24px}
     .tag{
       display:inline-block;
       padding:7px 11px;
       border-radius:999px;
+      background:#eef6ff;
+      color:#256ea6;
       font-size:12px;
       font-weight:900;
-      background:#eef6ff;
-      color:#2b6c9f;
       margin-bottom:13px;
     }
 
     .product-body h3{
-      margin:0 0 10px;
       font-size:35px;
+      margin:0 0 10px;
       line-height:1;
-      letter-spacing:-.9px;
+      letter-spacing:-.8px;
     }
 
     .product-body p{
       color:var(--muted);
       margin:0 0 18px;
-      min-height:88px;
+      min-height:86px;
     }
 
     .features{
@@ -468,8 +353,8 @@
       display:flex;
       gap:10px;
       align-items:flex-start;
-      font-size:15px;
       color:#334155;
+      font-size:15px;
     }
 
     .check{
@@ -481,7 +366,7 @@
       place-items:center;
       color:var(--green);
       background:#eafaf4;
-      font-weight:1000;
+      font-weight:900;
     }
 
     .shop-link{
@@ -492,88 +377,29 @@
       width:100%;
       padding:14px 16px;
       border-radius:16px;
-      font-weight:1000;
-      background:linear-gradient(135deg,#6ee7ff,var(--blue));
+      font-weight:900;
+      background:linear-gradient(135deg,#65e7ff,var(--blue));
       color:#06162a;
     }
 
     .featured{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:28px;
+      gap:32px;
       align-items:center;
-      background:#fff;
-      border:1px solid #e7edf7;
+      background:white;
       border-radius:36px;
       box-shadow:var(--shadow);
+      border:1px solid #e7edf7;
       padding:30px;
-      overflow:hidden;
     }
 
-    .featured-art{
+    .featured img{
+      width:100%;
       min-height:390px;
-      border-radius:30px;
-      background:
-        radial-gradient(circle at 25% 20%,rgba(255,255,255,.18),transparent 30%),
-        linear-gradient(135deg,#0b4035,#0f6b56);
-      display:grid;
-      place-items:center;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .featured-art:before{
-      content:"";
-      position:absolute;
-      width:330px;
-      height:330px;
-      border-radius:50%;
-      right:-110px;
-      top:-110px;
-      background:rgba(255,255,255,.13);
-    }
-
-    .proposal-sheet{
-      width:270px;
-      height:335px;
-      background:#fff;
-      color:#0f172a;
+      object-fit:cover;
       border-radius:28px;
-      padding:24px;
-      box-shadow:0 28px 70px rgba(0,0,0,.28);
-      transform:rotate(-6deg);
-      position:relative;
-      z-index:2;
-    }
-
-    .proposal-sheet h3{
-      margin:0 0 18px;
-      font-size:26px;
-      letter-spacing:-.6px;
-    }
-
-    .line{
-      height:10px;
-      border-radius:999px;
-      background:#cbd5e1;
-      margin:12px 0;
-    }
-
-    .line.a{width:92%}
-    .line.b{width:76%}
-    .line.c{width:84%}
-    .line.d{width:60%}
-
-    .approved{
-      position:absolute;
-      right:20px;
-      bottom:22px;
-      background:#16a34a;
-      color:#fff;
-      padding:10px 14px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:1000;
+      display:block;
     }
 
     .points{
@@ -590,8 +416,15 @@
       padding:14px;
     }
 
-    .point strong{display:block}
-    .point span{color:var(--muted);font-size:14px}
+    .point strong{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .point span{
+      color:var(--muted);
+      font-size:14px;
+    }
 
     .scenarios{
       display:grid;
@@ -600,30 +433,33 @@
     }
 
     .scenario{
-      background:#fff;
-      border:1px solid #e7edf7;
+      background:white;
       border-radius:28px;
+      overflow:hidden;
       box-shadow:var(--shadow);
-      padding:24px;
+      border:1px solid #e7edf7;
     }
 
-    .avatar{
-      width:58px;
-      height:58px;
-      border-radius:20px;
-      display:grid;
-      place-items:center;
-      color:#fff;
-      font-size:28px;
-      margin-bottom:16px;
+    .scenario img{
+      width:100%;
+      height:210px;
+      object-fit:cover;
+      display:block;
     }
 
-    .avatar.a{background:linear-gradient(135deg,#1976d2,#47c8ff)}
-    .avatar.b{background:linear-gradient(135deg,#047857,#34d399)}
-    .avatar.c{background:linear-gradient(135deg,#5b21b6,#9f7aea)}
+    .scenario-body{
+      padding:22px;
+    }
 
-    .scenario h3{margin:0 0 8px;font-size:24px}
-    .scenario p{color:var(--muted);margin:0}
+    .scenario h3{
+      margin:0 0 8px;
+      font-size:24px;
+    }
+
+    .scenario p{
+      margin:0;
+      color:var(--muted);
+    }
 
     .faq{
       display:grid;
@@ -632,7 +468,7 @@
     }
 
     .faq-item{
-      background:#fff;
+      background:white;
       border:1px solid #e7edf7;
       border-radius:24px;
       box-shadow:var(--shadow);
@@ -650,32 +486,24 @@
     }
 
     .big-cta{
-      background:
-        radial-gradient(circle at 20% 0%,rgba(49,191,255,.22),transparent 26%),
-        radial-gradient(circle at 85% 30%,rgba(124,92,255,.22),transparent 26%),
-        linear-gradient(135deg,var(--navy),#14345a);
-      color:#fff;
+      background:linear-gradient(135deg,#07162d,#14345a);
+      color:white;
       border-radius:38px;
       padding:58px 28px;
       text-align:center;
-      position:relative;
       overflow:hidden;
+      position:relative;
     }
 
-    .big-cta h2{position:relative;z-index:1}
     .big-cta p{
-      position:relative;
-      z-index:1;
-      max-width:780px;
+      max-width:760px;
       margin:14px auto 26px;
-      color:#d9e7f7;
+      color:#dbeafe;
       font-size:18px;
     }
 
-    .big-cta .hero-cta{
+    .big-cta .cta{
       justify-content:center;
-      position:relative;
-      z-index:1;
       margin-top:0;
     }
 
@@ -699,18 +527,40 @@
         grid-template-columns:1fr;
       }
 
-      .hero-grid{padding:58px 0 122px}
-      .stats{margin-top:28px}
-      .product-body p{min-height:auto}
+      .stats{
+        margin-top:28px;
+      }
+
+      .product-body p{
+        min-height:auto;
+      }
     }
 
     @media(max-width:640px){
-      .nav{align-items:flex-start;flex-direction:column}
-      .hero-visual{min-height:420px}
-      .float-card{display:none}
-      .points{grid-template-columns:1fr}
-      .section{padding:56px 0}
-      .proposal-sheet{width:230px;height:300px}
+      .nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      h1{
+        font-size:44px;
+      }
+
+      .hero-grid{
+        padding:52px 0 72px;
+      }
+
+      .hero-photo img{
+        min-height:340px;
+      }
+
+      .points{
+        grid-template-columns:1fr;
+      }
+
+      section{
+        padding:56px 0;
+      }
     }
   </style>
 </head>
@@ -724,6 +574,7 @@
           <div class="logo">T</div>
           <div>TransDelta Offline Business Tools</div>
         </div>
+
         <div class="nav-links">
           <a href="#products">Products</a>
           <a href="#featured">Featured</a>
@@ -738,124 +589,40 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <div class="small-pill">
+          <div class="pill">
             <span class="dot"></span>
-            Digital tools for real daily work
+            Real tools for real daily work
           </div>
 
-          <h1>Offline business tools that feel like a real product shop.</h1>
+          <h1>Offline business tools for people who get work done.</h1>
 
           <p class="lead">
-            CVCraft, DealCraft and BizBoard help people create resumes, proposals,
-            quotes and simple business overviews — without turning every task into
-            another subscription.
+            CVCraft, DealCraft and BizBoard help job seekers, freelancers and small
+            business owners create resumes, proposals, quotes and business overviews
+            without another monthly subscription.
           </p>
 
-          <div class="hero-cta">
+          <div class="cta">
             <a class="btn primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Start with DealCraft</a>
             <a class="btn secondary" href="#products">View product suite</a>
           </div>
 
-          <div class="hero-badges">
+          <div class="badges">
             <span>No subscription</span>
             <span>One-time download</span>
             <span>Gumroad checkout</span>
-            <span>Built for freelancers & small businesses</span>
+            <span>For freelancers & small businesses</span>
           </div>
         </div>
 
-        <div class="hero-visual">
-          <div class="float-card one">
-            <strong>CVCraft</strong>
-            <span>Professional resume workflow</span>
-          </div>
-          <div class="float-card two">
-            <strong>DealCraft</strong>
-            <span>Client proposals & quotes</span>
-          </div>
-          <div class="float-card three">
-            <strong>BizBoard</strong>
-            <span>Small-business overview</span>
-          </div>
-
-          <div class="visual-frame">
-            <svg viewBox="0 0 620 480" xmlns="http://www.w3.org/2000/svg" aria-label="Workspace illustration">
-              <defs>
-                <linearGradient id="screen" x1="0" x2="1">
-                  <stop offset="0%" stop-color="#e9f8ff"/>
-                  <stop offset="100%" stop-color="#eef2ff"/>
-                </linearGradient>
-                <linearGradient id="desk" x1="0" x2="1">
-                  <stop offset="0%" stop-color="#17426b"/>
-                  <stop offset="100%" stop-color="#0b2b4a"/>
-                </linearGradient>
-                <linearGradient id="shirt" x1="0" x2="1">
-                  <stop offset="0%" stop-color="#31bfff"/>
-                  <stop offset="100%" stop-color="#28c98f"/>
-                </linearGradient>
-                <linearGradient id="purpleg" x1="0" x2="1">
-                  <stop offset="0%" stop-color="#7c5cff"/>
-                  <stop offset="100%" stop-color="#31bfff"/>
-                </linearGradient>
-              </defs>
-
-              <rect x="40" y="70" width="130" height="90" rx="24" fill="rgba(255,255,255,.13)"/>
-              <rect x="455" y="60" width="125" height="92" rx="24" fill="rgba(255,255,255,.13)"/>
-              <rect x="455" y="285" width="112" height="90" rx="24" fill="rgba(255,255,255,.13)"/>
-
-              <rect x="110" y="350" width="405" height="58" rx="28" fill="url(#desk)"/>
-              <rect x="135" y="405" width="22" height="45" rx="10" fill="#14365d"/>
-              <rect x="463" y="405" width="22" height="45" rx="10" fill="#14365d"/>
-
-              <rect x="218" y="165" width="200" height="130" rx="20" fill="#fff"/>
-              <rect x="233" y="180" width="170" height="96" rx="14" fill="url(#screen)"/>
-              <rect x="258" y="202" width="92" height="13" rx="7" fill="url(#purpleg)"/>
-              <rect x="253" y="228" width="125" height="10" rx="5" fill="#a9bdd4"/>
-              <rect x="253" y="246" width="105" height="10" rx="5" fill="#a9bdd4"/>
-              <rect x="270" y="293" width="96" height="13" rx="7" fill="#cbd5e1"/>
-
-              <circle cx="150" cy="210" r="36" fill="#f0c5a8"/>
-              <path d="M120 207c8-34 55-39 70-9 4 8 3 20-1 27-10-7-20-9-31-8-13 0-24 5-36 14-9-9-7-14-2-24z" fill="#111827"/>
-              <rect x="102" y="250" width="95" height="80" rx="30" fill="url(#shirt)"/>
-              <rect x="179" y="276" width="92" height="18" rx="9" fill="#f0c5a8" transform="rotate(-9 179 276)"/>
-              <rect x="112" y="327" width="30" height="52" rx="11" fill="#163a64"/>
-              <rect x="154" y="327" width="30" height="52" rx="11" fill="#163a64"/>
-
-              <g transform="translate(66 92)">
-                <rect width="92" height="120" rx="20" fill="#fff"/>
-                <rect x="16" y="18" width="48" height="11" rx="6" fill="#31bfff"/>
-                <rect x="16" y="43" width="62" height="8" rx="4" fill="#c0d0e1"/>
-                <rect x="16" y="60" width="52" height="8" rx="4" fill="#c0d0e1"/>
-                <rect x="16" y="77" width="60" height="8" rx="4" fill="#c0d0e1"/>
-                <circle cx="68" cy="98" r="12" fill="#dcf3ff"/>
-              </g>
-
-              <g transform="translate(468 83)">
-                <rect width="96" height="116" rx="20" fill="#fff"/>
-                <rect x="18" y="17" width="54" height="11" rx="6" fill="#28c98f"/>
-                <rect x="18" y="44" width="64" height="8" rx="4" fill="#cbd5e1"/>
-                <rect x="18" y="61" width="55" height="8" rx="4" fill="#cbd5e1"/>
-                <rect x="18" y="78" width="60" height="8" rx="4" fill="#cbd5e1"/>
-                <rect x="18" y="95" width="40" height="12" rx="6" fill="#d8faed"/>
-              </g>
-
-              <g transform="translate(470 300)">
-                <rect width="86" height="72" rx="20" fill="#fff"/>
-                <rect x="16" y="20" width="10" height="30" rx="5" fill="#7c5cff"/>
-                <rect x="32" y="12" width="10" height="38" rx="5" fill="#31bfff"/>
-                <rect x="48" y="25" width="10" height="25" rx="5" fill="#28c98f"/>
-                <path d="M15 58H72" stroke="#dbeafe" stroke-width="5" stroke-linecap="round"/>
-              </g>
-            </svg>
+        <div class="hero-photo">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80" alt="Modern office workspace with people working on laptops">
+          <div class="photo-card">
+            <strong>TransDelta Product Suite</strong>
+            <span>Three practical tools for CVs, proposals and business tracking.</span>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="hero-wave" aria-hidden="true">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,32L48,48C96,64,192,96,288,96C384,96,480,64,576,53.3C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,120L0,120Z"></path>
-      </svg>
     </div>
   </header>
 
@@ -870,27 +637,18 @@
     </div>
   </div>
 
-  <section class="section" id="products">
+  <section id="products">
     <div class="wrap">
       <div class="section-head">
-        <div>
-          <h2>Shop the product suite</h2>
-          <p class="section-copy">
-            Three simple tools, presented with product covers and clear use cases so the page feels more like a real digital shop.
-          </p>
-        </div>
+        <h2>Shop the product suite</h2>
+        <p class="section-copy">
+          Now the page uses real images and feels more like a professional digital product shop.
+        </p>
       </div>
 
       <div class="products">
         <article class="product-card">
-          <div class="product-visual cv">
-            <div class="product-cover cv">
-              <div class="cover-icon">📄</div>
-              <div class="cover-title">CVCraft</div>
-              <div class="cover-sub">Offline Resume & CV Builder</div>
-              <div class="price-badge">One-time</div>
-            </div>
-          </div>
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80" alt="Documents and resume paperwork on a desk">
           <div class="product-body">
             <span class="tag">CV / Resume</span>
             <h3>CVCraft</h3>
@@ -905,14 +663,7 @@
         </article>
 
         <article class="product-card">
-          <div class="product-visual deal">
-            <div class="product-cover deal">
-              <div class="cover-icon">💼</div>
-              <div class="cover-title">DealCraft</div>
-              <div class="cover-sub">Proposal & Quote Builder</div>
-              <div class="price-badge">Featured</div>
-            </div>
-          </div>
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80" alt="Business people discussing proposals at a table">
           <div class="product-body">
             <span class="tag">Proposals / Quotes</span>
             <h3>DealCraft</h3>
@@ -927,14 +678,7 @@
         </article>
 
         <article class="product-card">
-          <div class="product-visual biz">
-            <div class="product-cover biz">
-              <div class="cover-icon">📊</div>
-              <div class="cover-title">BizBoard</div>
-              <div class="cover-sub">Local Business Dashboard</div>
-              <div class="price-badge">Simple</div>
-            </div>
-          </div>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Business analytics dashboard on a screen">
           <div class="product-body">
             <span class="tag">Business Dashboard</span>
             <h3>BizBoard</h3>
@@ -951,48 +695,27 @@
     </div>
   </section>
 
-  <section class="section" id="featured">
+  <section id="featured">
     <div class="wrap">
       <div class="featured">
-        <div class="featured-art">
-          <div class="proposal-sheet">
-            <h3>Client Proposal</h3>
-            <div class="line a"></div>
-            <div class="line b"></div>
-            <div class="line c"></div>
-            <div class="line d"></div>
-            <div class="line a"></div>
-            <div class="approved">Ready</div>
-          </div>
-        </div>
+        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80" alt="Business team reviewing proposal documents">
 
         <div>
           <span class="tag">Featured product</span>
           <h2>Lead with DealCraft first.</h2>
           <p class="section-copy">
-            DealCraft has the clearest money-related use case: freelancers and small businesses understand why better proposals and quotes can help them look more professional.
+            DealCraft has the clearest money-related use case: freelancers and small businesses
+            understand why better proposals and quotes can help them look more professional.
           </p>
 
           <div class="points">
-            <div class="point">
-              <strong>Clear pain</strong>
-              <span>People need cleaner offers and proposals.</span>
-            </div>
-            <div class="point">
-              <strong>Business buyer</strong>
-              <span>Closer to people already trying to earn money.</span>
-            </div>
-            <div class="point">
-              <strong>Simple promise</strong>
-              <span>Create client proposals without complicated software.</span>
-            </div>
-            <div class="point">
-              <strong>Best first push</strong>
-              <span>Strongest product to promote first organically.</span>
-            </div>
+            <div class="point"><strong>Clear pain</strong><span>People need cleaner offers and proposals.</span></div>
+            <div class="point"><strong>Business buyer</strong><span>Closer to people already trying to earn money.</span></div>
+            <div class="point"><strong>Simple promise</strong><span>Create client proposals without complicated software.</span></div>
+            <div class="point"><strong>Best first push</strong><span>Strongest product to promote first organically.</span></div>
           </div>
 
-          <div class="hero-cta" style="margin-top:0">
+          <div class="cta" style="margin-top:0">
             <a class="btn primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">View DealCraft on Gumroad</a>
           </div>
         </div>
@@ -1000,46 +723,48 @@
     </div>
   </section>
 
-  <section class="section" id="scenarios">
+  <section id="scenarios">
     <div class="wrap">
       <div class="section-head">
-        <div>
-          <h2>Who can use these tools?</h2>
-          <p class="section-copy">
-            Clear buyer situations help visitors understand immediately whether one of the products fits their current work.
-          </p>
-        </div>
+        <h2>Who can use these tools?</h2>
+        <p class="section-copy">
+          Real people, real situations, clear use cases.
+        </p>
       </div>
 
       <div class="scenarios">
         <div class="scenario">
-          <div class="avatar a">👩‍🎓</div>
-          <h3>Job seeker</h3>
-          <p>Needs a clean CV without paying monthly for a resume platform.</p>
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Students working together">
+          <div class="scenario-body">
+            <h3>Job seekers & students</h3>
+            <p>Need a clean CV without paying monthly for a resume platform.</p>
+          </div>
         </div>
 
         <div class="scenario">
-          <div class="avatar b">👨‍💼</div>
-          <h3>Freelancer</h3>
-          <p>Needs better client proposals and quotes to look more professional.</p>
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Freelancer working on laptop">
+          <div class="scenario-body">
+            <h3>Freelancers</h3>
+            <p>Need better client proposals and quotes to look more professional.</p>
+          </div>
         </div>
 
         <div class="scenario">
-          <div class="avatar c">🏪</div>
-          <h3>Local business owner</h3>
-          <p>Needs a simple dashboard-style overview without enterprise software.</p>
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Small business team working in office">
+          <div class="scenario-body">
+            <h3>Small businesses</h3>
+            <p>Need a simple dashboard-style overview without enterprise software.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="faq">
+  <section id="faq">
     <div class="wrap">
       <div class="section-head">
-        <div>
-          <h2>FAQ</h2>
-          <p class="section-copy">Simple answers for people who land on the page and need quick clarity.</p>
-        </div>
+        <h2>FAQ</h2>
+        <p class="section-copy">Simple answers for visitors who need quick clarity.</p>
       </div>
 
       <div class="faq">
@@ -1066,15 +791,16 @@
     </div>
   </section>
 
-  <section class="section" id="links">
+  <section id="links">
     <div class="wrap">
       <div class="big-cta">
         <h2>Choose your next offline business tool.</h2>
         <p>
-          Build a CV, create a proposal, prepare a quote or organize a small business overview — without another monthly software subscription.
+          Build a CV, create a proposal, prepare a quote or organize a small business overview
+          without another monthly software subscription.
         </p>
 
-        <div class="hero-cta">
+        <div class="cta">
           <a class="btn secondary" href="https://transdelta.gumroad.com/l/cvcraft">Open CVCraft</a>
           <a class="btn primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Open DealCraft</a>
           <a class="btn secondary" href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">Open BizBoard</a>
@@ -1083,7 +809,7 @@
 
       <footer>
         <span>TransDelta Offline Business Tools · Public product hub on GitHub Pages</span>
-        <span>CVCraft · DealCraft · BizBoard</span>
+        <span>Photos via Unsplash · CVCraft · DealCraft · BizBoard</span>
       </footer>
     </div>
   </section>
