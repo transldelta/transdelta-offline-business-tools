@@ -10,89 +10,668 @@
   <meta property="og:description" content="CVCraft, DealCraft and BizBoard: practical offline-style tools for job seekers, freelancers and small businesses.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://transldelta.github.io/transdelta-offline-business-tools/">
+
   <style>
     :root {
-      --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --line:#334155; --accent:#38bdf8; --accent2:#22c55e;
+      --bg:#061126;
+      --bg2:#0a1731;
+      --panel:rgba(8,18,38,.72);
+      --panel-2:rgba(12,25,50,.88);
+      --text:#eef5ff;
+      --muted:#b9c7dd;
+      --line:rgba(148,163,184,.18);
+      --accent:#4cc9ff;
+      --accent-2:#6df7c1;
+      --accent-3:#8b5cf6;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:22px;
     }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:Arial, Helvetica, sans-serif; background:linear-gradient(135deg,#020617,#111827); color:var(--text); line-height:1.6; }
-    .wrap { max-width:1100px; margin:0 auto; padding:40px 20px; }
-    header { padding:40px 0 30px; }
-    .badge { display:inline-block; border:1px solid var(--line); color:var(--muted); padding:6px 10px; border-radius:999px; font-size:14px; }
-    h1 { font-size:clamp(36px,6vw,72px); line-height:1.05; margin:24px 0 16px; }
-    h2 { font-size:30px; margin-top:46px; }
-    p.lead { font-size:21px; color:#cbd5e1; max-width:850px; }
-    .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
-    a.button { display:inline-block; text-decoration:none; color:#04111f; background:var(--accent); padding:13px 18px; border-radius:12px; font-weight:700; }
-    a.button.secondary { background:transparent; color:var(--text); border:1px solid var(--line); }
-    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:28px; }
-    .card { background:rgba(17,24,39,.85); border:1px solid var(--line); border-radius:18px; padding:24px; }
-    .card h3 { margin-top:0; font-size:24px; }
-    .card p { color:#cbd5e1; }
-    .card a { color:var(--accent); font-weight:700; }
-    .pill { display:inline-block; background:#0b2536; border:1px solid #164e63; color:#bae6fd; padding:4px 8px; border-radius:999px; font-size:12px; margin-bottom:12px; }
-    ul { color:#cbd5e1; }
-    footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
-    @media (max-width:850px) { .grid { grid-template-columns:1fr; } }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(76,201,255,.14), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(139,92,246,.14), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(109,247,193,.10), transparent 26%),
+        linear-gradient(160deg,var(--bg),var(--bg2));
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    .noise,
+    .blob,
+    .blob2,
+    .blob3 {
+      position:fixed;
+      inset:auto;
+      pointer-events:none;
+      z-index:0;
+      filter:blur(14px);
+      opacity:.55;
+    }
+
+    .blob {
+      width:320px;
+      height:320px;
+      top:80px;
+      left:-60px;
+      background:radial-gradient(circle,rgba(76,201,255,.32),transparent 65%);
+      animation:float1 12s ease-in-out infinite;
+    }
+
+    .blob2 {
+      width:360px;
+      height:360px;
+      top:220px;
+      right:-100px;
+      background:radial-gradient(circle,rgba(139,92,246,.28),transparent 65%);
+      animation:float2 15s ease-in-out infinite;
+    }
+
+    .blob3 {
+      width:300px;
+      height:300px;
+      bottom:80px;
+      left:40%;
+      background:radial-gradient(circle,rgba(109,247,193,.22),transparent 65%);
+      animation:float3 18s ease-in-out infinite;
+    }
+
+    .noise {
+      inset:0;
+      opacity:.07;
+      background-image:radial-gradient(rgba(255,255,255,.45) .6px, transparent .6px);
+      background-size:18px 18px;
+      filter:none;
+    }
+
+    @keyframes float1 {
+      0%,100% {
+        transform:translate(0,0);
+      }
+      50% {
+        transform:translate(30px,40px);
+      }
+    }
+
+    @keyframes float2 {
+      0%,100% {
+        transform:translate(0,0);
+      }
+      50% {
+        transform:translate(-35px,30px);
+      }
+    }
+
+    @keyframes float3 {
+      0%,100% {
+        transform:translate(0,0);
+      }
+      50% {
+        transform:translate(20px,-25px);
+      }
+    }
+
+    .wrap {
+      position:relative;
+      z-index:1;
+      max-width:1180px;
+      margin:0 auto;
+      padding:0 20px 60px;
+    }
+
+    .nav {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:24px 0 12px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .brand-badge {
+      display:inline-grid;
+      place-items:center;
+      width:38px;
+      height:38px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-3));
+      color:#02111f;
+      box-shadow:var(--shadow);
+      font-weight:900;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a {
+      color:var(--muted);
+      text-decoration:none;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.02);
+    }
+
+    .nav-links a:hover {
+      color:var(--text);
+      border-color:rgba(76,201,255,.45);
+    }
+
+    .hero {
+      position:relative;
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius:32px;
+      overflow:hidden;
+      background:linear-gradient(180deg,rgba(12,25,50,.70),rgba(5,14,31,.92));
+      box-shadow:var(--shadow);
+    }
+
+    .hero-inner {
+      padding:72px 42px 110px;
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border:1px solid rgba(76,201,255,.28);
+      border-radius:999px;
+      background:rgba(76,201,255,.08);
+      color:#d8f4ff;
+      font-size:14px;
+    }
+
+    .dot {
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      box-shadow:0 0 20px rgba(76,201,255,.9);
+    }
+
+    h1 {
+      font-size:clamp(42px,7vw,88px);
+      line-height:.98;
+      letter-spacing:-1.8px;
+      margin:22px 0 16px;
+      max-width:930px;
+    }
+
+    .lead {
+      font-size:clamp(18px,2.3vw,24px);
+      color:var(--muted);
+      max-width:900px;
+      margin:0;
+    }
+
+    .cta {
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:30px;
+    }
+
+    .button {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
+      font-weight:800;
+      padding:15px 22px;
+      border-radius:16px;
+      border:1px solid transparent;
+      transition:.25s ease;
+    }
+
+    .button.primary {
+      background:linear-gradient(135deg,var(--accent),#6fd9ff);
+      color:#04111f;
+      box-shadow:0 14px 34px rgba(76,201,255,.25);
+    }
+
+    .button.secondary {
+      color:var(--text);
+      border-color:var(--line);
+      background:rgba(255,255,255,.04);
+    }
+
+    .button:hover {
+      transform:translateY(-2px);
+    }
+
+    .hero-stats {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:34px;
+      max-width:760px;
+    }
+
+    .stat {
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      backdrop-filter:blur(8px);
+    }
+
+    .stat strong {
+      display:block;
+      font-size:26px;
+    }
+
+    .stat span {
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .wave {
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-1px;
+      line-height:0;
+    }
+
+    .wave svg {
+      display:block;
+      width:100%;
+      height:110px;
+    }
+
+    .wave path {
+      fill:#081427;
+    }
+
+    section {
+      padding-top:34px;
+    }
+
+    .section-head {
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    h2 {
+      font-size:34px;
+      margin:0;
+    }
+
+    .section-copy {
+      color:var(--muted);
+      max-width:680px;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .card {
+      position:relative;
+      background:linear-gradient(180deg,rgba(12,25,50,.80),rgba(7,17,34,.95));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:24px;
+      overflow:hidden;
+      transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+      box-shadow:0 14px 30px rgba(0,0,0,.20);
+    }
+
+    .card:before {
+      content:"";
+      position:absolute;
+      inset:0 auto auto 0;
+      width:100%;
+      height:4px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));
+      opacity:.9;
+    }
+
+    .card:hover {
+      transform:translateY(-5px);
+      border-color:rgba(76,201,255,.40);
+      box-shadow:0 20px 40px rgba(0,0,0,.30);
+    }
+
+    .pill {
+      display:inline-block;
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(76,201,255,.10);
+      border:1px solid rgba(76,201,255,.18);
+      color:#cfefff;
+      margin-bottom:14px;
+    }
+
+    .card h3 {
+      font-size:34px;
+      margin:0 0 8px;
+      letter-spacing:-.8px;
+    }
+
+    .card p {
+      color:var(--muted);
+      margin:0 0 16px;
+    }
+
+    .card ul {
+      padding-left:18px;
+      color:#dbe7f6;
+      margin:0 0 18px;
+    }
+
+    .card ul li {
+      margin:6px 0;
+    }
+
+    .card a {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#7ddcff;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    .why {
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:20px;
+      align-items:stretch;
+    }
+
+    .panel {
+      background:linear-gradient(180deg,rgba(12,25,50,.76),rgba(7,17,34,.92));
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+
+    .checks {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .check {
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+    }
+
+    .check strong {
+      display:block;
+      font-size:16px;
+      margin-bottom:4px;
+    }
+
+    .check span {
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .link-list {
+      display:grid;
+      gap:10px;
+    }
+
+    .link-list a {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      text-decoration:none;
+      color:var(--text);
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+    }
+
+    .link-list a span {
+      color:#7ddcff;
+      font-weight:700;
+    }
+
+    footer {
+      margin-top:42px;
+      padding:26px 0 0;
+      color:var(--muted);
+      font-size:14px;
+      border-top:1px solid var(--line);
+    }
+
+    @media (max-width:980px) {
+      .grid,
+      .hero-stats,
+      .checks,
+      .why {
+        grid-template-columns:1fr;
+      }
+
+      .hero-inner {
+        padding:56px 22px 92px;
+      }
+
+      h2 {
+        font-size:28px;
+      }
+    }
   </style>
 </head>
+
 <body>
+  <div class="blob"></div>
+  <div class="blob2"></div>
+  <div class="blob3"></div>
+  <div class="noise"></div>
+
   <main class="wrap">
-    <header>
-      <span class="badge">TransDelta Product Suite</span>
-      <h1>Offline business tools with no subscription.</h1>
-      <p class="lead">CVCraft, DealCraft and BizBoard are practical one-time-download tools for job seekers, freelancers, consultants, local service providers and small business owners.</p>
-      <div class="cta">
-        <a class="button" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Start with DealCraft</a>
-        <a class="button secondary" href="#products">View all tools</a>
+    <nav class="nav">
+      <div class="brand">
+        <span class="brand-badge">T</span>
+        <span>TransDelta Offline Business Tools</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#products">Products</a>
+        <a href="#why">Why offline</a>
+        <a href="#links">Direct links</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <span class="eyebrow">
+          <span class="dot"></span>
+          Practical tools for freelancers, job seekers and small businesses
+        </span>
+
+        <h1>Offline business tools with a stronger visual impact.</h1>
+
+        <p class="lead">
+          CVCraft, DealCraft and BizBoard help people create resumes, proposals,
+          quotes and simple business tracking without subscriptions, accounts or
+          complicated software.
+        </p>
+
+        <div class="cta">
+          <a class="button primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">
+            Start with DealCraft
+          </a>
+          <a class="button secondary" href="#products">
+            Explore all tools
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>3</strong>
+            <span>focused tools in one public hub</span>
+          </div>
+          <div class="stat">
+            <strong>0</strong>
+            <span>monthly subscription required</span>
+          </div>
+          <div class="stat">
+            <strong>1×</strong>
+            <span>download and use anytime</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,32L48,42.7C96,53,192,75,288,80C384,85,480,75,576,64C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
+        </svg>
       </div>
     </header>
 
     <section id="products">
-      <h2>Products</h2>
+      <div class="section-head">
+        <div>
+          <h2>Products</h2>
+          <p class="section-copy">
+            Three focused tools with simple positioning: no account, no subscription,
+            and no unnecessary complexity.
+          </p>
+        </div>
+      </div>
+
       <div class="grid">
         <article class="card">
           <span class="pill">CV / Resume</span>
           <h3>CVCraft</h3>
-          <p>Offline Resume & CV Builder for job seekers, students, freelancers and career changers who want a clean professional CV without monthly software.</p>
+          <p>
+            Offline Resume & CV Builder for job seekers, students, freelancers and
+            career changers who want a clean professional CV.
+          </p>
+          <ul>
+            <li>Simple CV workflow</li>
+            <li>No monthly software</li>
+            <li>Good fit for applications</li>
+          </ul>
           <a href="https://transdelta.gumroad.com/l/cvcraft">Open CVCraft →</a>
         </article>
+
         <article class="card">
           <span class="pill">Proposals / Quotes</span>
           <h3>DealCraft</h3>
-          <p>Offline Proposal & Quote Builder for freelancers, consultants and small businesses that need cleaner client offers and proposals.</p>
+          <p>
+            Offline Proposal & Quote Builder for freelancers, consultants and small
+            businesses that need cleaner client offers.
+          </p>
+          <ul>
+            <li>Create proposals faster</li>
+            <li>Useful for service businesses</li>
+            <li>Strong direct revenue angle</li>
+          </ul>
           <a href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Open DealCraft →</a>
         </article>
+
         <article class="card">
           <span class="pill">Business Dashboard</span>
           <h3>BizBoard</h3>
-          <p>Local Small-Business Dashboard for small business owners and local operators who want a simple overview of key business information.</p>
+          <p>
+            Local Small-Business Dashboard for business owners and local operators
+            who want a simple overview of key information.
+          </p>
+          <ul>
+            <li>Simple business overview</li>
+            <li>Useful for local operators</li>
+            <li>No heavy dashboard software</li>
+          </ul>
           <a href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">Open BizBoard →</a>
         </article>
       </div>
     </section>
 
-    <section>
-      <h2>Why offline?</h2>
-      <ul>
-        <li>No monthly subscription for simple business tasks.</li>
-        <li>No account required before starting your work.</li>
-        <li>Simple focused tools instead of complicated enterprise software.</li>
-        <li>Useful for freelancers, small businesses, students and solo operators.</li>
-      </ul>
-    </section>
+    <section id="why">
+      <div class="section-head">
+        <div>
+          <h2>Why offline?</h2>
+          <p class="section-copy">
+            The value proposition is simple and easy to understand, which is good
+            for product positioning and cleaner marketing.
+          </p>
+        </div>
+      </div>
 
-    <section>
-      <h2>Direct links</h2>
-      <ul>
-        <li><a href="https://transdelta.gumroad.com/l/cvcraft">CVCraft — Offline Resume & CV Builder</a></li>
-        <li><a href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">DealCraft — Offline Proposal & Quote Builder</a></li>
-        <li><a href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">BizBoard — Local Small-Business Dashboard</a></li>
-      </ul>
+      <div class="why">
+        <div class="panel">
+          <div class="checks">
+            <div class="check">
+              <strong>No subscription</strong>
+              <span>People pay once instead of dealing with recurring fees.</span>
+            </div>
+            <div class="check">
+              <strong>No account</strong>
+              <span>Less friction before starting real work.</span>
+            </div>
+            <div class="check">
+              <strong>Focused tools</strong>
+              <span>Useful for simple tasks without enterprise complexity.</span>
+            </div>
+            <div class="check">
+              <strong>Clear audience</strong>
+              <span>Freelancers, students, job seekers and small businesses.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="links">
+          <h2 style="font-size:28px;margin-bottom:12px;">Direct links</h2>
+          <div class="link-list">
+            <a href="https://transdelta.gumroad.com/l/cvcraft">
+              CVCraft <span>Open →</span>
+            </a>
+            <a href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">
+              DealCraft <span>Open →</span>
+            </a>
+            <a href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">
+              BizBoard <span>Open →</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer>
-      <p>TransDelta Offline Business Tools. Public product hub hosted on GitHub Pages.</p>
+      <p>TransDelta Offline Business Tools · Public product hub hosted on GitHub Pages.</p>
     </footer>
   </main>
 </body>
