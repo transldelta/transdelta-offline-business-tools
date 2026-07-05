@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TransDelta Offline Business Tools</title>
-  <meta name="description" content="Offline business tools for CVs, proposals, quotes, and local business tracking. No subscription. Download once and use anytime.">
+  <meta name="description" content="Offline business tools for CVs, proposals, quotes and local business tracking. No subscription. Download once and use anytime.">
   <link rel="canonical" href="https://transldelta.github.io/transdelta-offline-business-tools/">
   <meta property="og:title" content="TransDelta Offline Business Tools">
   <meta property="og:description" content="CVCraft, DealCraft and BizBoard: practical offline-style tools for job seekers, freelancers and small businesses.">
@@ -13,19 +13,20 @@
 
   <style>
     :root{
-      --bg:#050816;
-      --bg2:#07152d;
-      --card:#0f1d37;
-      --glass:rgba(255,255,255,.07);
-      --line:rgba(255,255,255,.14);
-      --text:#f4f8ff;
-      --muted:#b7c4d8;
-      --blue:#44c7ff;
-      --green:#6df7c1;
-      --purple:#8b5cf6;
-      --orange:#f59e0b;
-      --shadow:0 26px 80px rgba(0,0,0,.45);
-      --radius:28px;
+      --navy:#07162d;
+      --navy2:#0d2748;
+      --light:#f4f7fb;
+      --white:#ffffff;
+      --text:#122033;
+      --muted:#607086;
+      --line:#dbe3ef;
+      --blue:#32b6ff;
+      --blue2:#4dd4ff;
+      --green:#27c48f;
+      --purple:#7c5cff;
+      --orange:#ffb648;
+      --shadow:0 18px 50px rgba(14,31,53,.12);
+      --radius:26px;
     }
 
     *{box-sizing:border-box}
@@ -33,758 +34,873 @@
     body{
       margin:0;
       font-family:Inter,Arial,Helvetica,sans-serif;
+      background:var(--light);
       color:var(--text);
-      background:
-        radial-gradient(circle at 10% 5%,rgba(68,199,255,.18),transparent 26%),
-        radial-gradient(circle at 85% 12%,rgba(139,92,246,.20),transparent 28%),
-        radial-gradient(circle at 50% 95%,rgba(109,247,193,.13),transparent 25%),
-        linear-gradient(145deg,var(--bg),var(--bg2));
       line-height:1.6;
-      overflow-x:hidden;
     }
 
     a{color:inherit}
-    .noise{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      opacity:.055;
-      background-image:radial-gradient(rgba(255,255,255,.6) .7px, transparent .7px);
-      background-size:18px 18px;
-    }
-
-    .orb{
-      position:fixed;
+    .wrap{max-width:1220px;margin:0 auto;padding:0 22px}
+    .section{padding:72px 0}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       border-radius:999px;
-      filter:blur(18px);
-      opacity:.55;
-      pointer-events:none;
-      z-index:0;
-      animation:float 15s ease-in-out infinite;
-    }
-    .orb.one{width:340px;height:340px;left:-90px;top:120px;background:radial-gradient(circle,rgba(68,199,255,.34),transparent 68%)}
-    .orb.two{width:420px;height:420px;right:-130px;top:210px;background:radial-gradient(circle,rgba(139,92,246,.30),transparent 68%);animation-delay:-4s}
-    .orb.three{width:320px;height:320px;left:38%;bottom:30px;background:radial-gradient(circle,rgba(109,247,193,.24),transparent 68%);animation-delay:-8s}
-    @keyframes float{
-      0%,100%{transform:translate(0,0) scale(1)}
-      50%{transform:translate(28px,-24px) scale(1.04)}
+      padding:8px 14px;
+      font-size:14px;
+      font-weight:700;
     }
 
-    .wrap{position:relative;z-index:1;max-width:1220px;margin:0 auto;padding:0 22px 70px}
-
+    /* NAV */
+    .nav-shell{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(219,227,239,.75);
+    }
     .nav{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      padding:25px 0 14px;
-      gap:14px;
+      align-items:center;
+      gap:18px;
+      padding:16px 0;
     }
-    .brand{display:flex;align-items:center;gap:12px;font-weight:900}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      font-size:18px;
+    }
     .logo{
-      width:42px;height:42px;border-radius:16px;
+      width:42px;height:42px;border-radius:14px;
       display:grid;place-items:center;
+      color:#fff;
       background:linear-gradient(135deg,var(--blue),var(--purple));
-      color:#03101f;
-      box-shadow:0 18px 38px rgba(68,199,255,.22);
-      font-weight:1000;
+      box-shadow:0 12px 28px rgba(50,182,255,.28);
     }
-    .nav-links{display:flex;gap:10px;flex-wrap:wrap}
+    .nav-links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
     .nav-links a{
       text-decoration:none;
       color:var(--muted);
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.035);
       padding:10px 14px;
       border-radius:999px;
+      border:1px solid transparent;
       font-size:14px;
+      font-weight:700;
     }
-    .nav-links a:hover{color:var(--text);border-color:rgba(68,199,255,.45)}
+    .nav-links a:hover{
+      background:#eef5ff;
+      color:var(--text);
+      border-color:#dbe7f7;
+    }
 
+    /* HERO */
     .hero{
-      position:relative;
-      margin-top:14px;
-      border:1px solid var(--line);
-      border-radius:36px;
-      overflow:hidden;
       background:
-        linear-gradient(120deg,rgba(255,255,255,.08),transparent 30%),
-        linear-gradient(180deg,rgba(12,26,52,.84),rgba(6,13,29,.94));
-      box-shadow:var(--shadow);
+        radial-gradient(circle at 20% 0%, rgba(50,182,255,.18), transparent 24%),
+        radial-gradient(circle at 90% 10%, rgba(124,92,255,.18), transparent 24%),
+        linear-gradient(135deg,var(--navy),var(--navy2));
+      color:#fff;
+      position:relative;
+      overflow:hidden;
     }
     .hero-grid{
       display:grid;
-      grid-template-columns:1.02fr .98fr;
-      gap:24px;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
       align-items:center;
-      padding:70px 46px 118px;
-      position:relative;
-      z-index:2;
+      padding:72px 0 120px;
     }
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      padding:8px 14px;
-      border-radius:999px;
-      background:rgba(68,199,255,.09);
-      border:1px solid rgba(68,199,255,.28);
-      color:#d9f5ff;
-      font-size:14px;
+    .hero .pill{
+      background:rgba(255,255,255,.08);
+      color:#dff5ff;
+      border:1px solid rgba(255,255,255,.18);
     }
-    .pulse{
+    .dot{
       width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg,var(--blue),var(--green));
-      box-shadow:0 0 18px rgba(68,199,255,.9);
+      background:linear-gradient(135deg,var(--blue2),#7fffd3);
+      box-shadow:0 0 18px rgba(77,212,255,.85);
     }
     h1{
       font-size:clamp(42px,6vw,82px);
-      line-height:.96;
-      letter-spacing:-2.2px;
-      margin:22px 0 18px;
-      max-width:780px;
+      line-height:.97;
+      letter-spacing:-2px;
+      margin:18px 0;
+      max-width:700px;
     }
     .lead{
-      color:var(--muted);
       font-size:clamp(18px,2vw,23px);
-      max-width:760px;
+      color:#d7e6f7;
+      max-width:700px;
       margin:0;
     }
-    .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
-    .button{
+    .hero-cta{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+    .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       text-decoration:none;
+      font-weight:900;
       padding:15px 22px;
       border-radius:16px;
-      font-weight:900;
       transition:.25s ease;
       border:1px solid transparent;
     }
-    .button.primary{
-      background:linear-gradient(135deg,var(--blue),#77dcff);
-      color:#03101f;
-      box-shadow:0 16px 36px rgba(68,199,255,.25);
+    .btn.primary{
+      background:linear-gradient(135deg,var(--blue2),var(--blue));
+      color:#06213a;
+      box-shadow:0 14px 34px rgba(50,182,255,.26);
     }
-    .button.secondary{
-      background:rgba(255,255,255,.055);
-      border-color:var(--line);
-      color:var(--text);
+    .btn.secondary{
+      color:#fff;
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.18);
     }
-    .button:hover{transform:translateY(-3px)}
+    .btn:hover{transform:translateY(-2px)}
 
     .hero-badges{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:28px;
+      margin-top:22px;
     }
-    .mini-badge{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.045);
-      color:#dce9fb;
-      padding:9px 12px;
+    .hero-badges span{
+      padding:8px 12px;
       border-radius:999px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.14);
+      color:#dce8f7;
       font-size:14px;
     }
 
-    .showcase{
+    .hero-visual{
       position:relative;
       min-height:520px;
       display:grid;
       place-items:center;
     }
-    .device{
-      position:relative;
-      width:min(100%,480px);
-      border-radius:30px;
-      padding:14px;
-      background:linear-gradient(135deg,rgba(255,255,255,.20),rgba(255,255,255,.04));
-      border:1px solid rgba(255,255,255,.20);
-      box-shadow:0 30px 90px rgba(0,0,0,.45);
-      transform:rotate(-2deg);
-    }
-    .screen{
-      border-radius:22px;
-      overflow:hidden;
-      background:#071226;
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .screen-top{
-      height:38px;
-      display:flex;
-      align-items:center;
-      gap:7px;
-      padding:0 14px;
-      background:rgba(255,255,255,.06);
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .dot-red,.dot-yellow,.dot-green{width:10px;height:10px;border-radius:50%}
-    .dot-red{background:#fb7185}.dot-yellow{background:#fbbf24}.dot-green{background:#34d399}
-    .screen-body{padding:18px}
-    .fake-title{
-      height:22px;width:70%;
-      border-radius:8px;
-      background:linear-gradient(90deg,var(--blue),var(--green));
-      margin-bottom:16px;
-    }
-    .fake-row{height:12px;border-radius:999px;background:rgba(255,255,255,.11);margin:10px 0}
-    .fake-row.w1{width:94%}.fake-row.w2{width:76%}.fake-row.w3{width:62%}
-    .mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-    .mock-card{
-      height:116px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(circle at 25% 20%,rgba(68,199,255,.22),transparent 30%),
-        linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
-      padding:12px;
-    }
-    .mock-icon{
-      width:38px;height:38px;border-radius:14px;
-      background:linear-gradient(135deg,var(--purple),var(--blue));
-      display:grid;place-items:center;
-      font-size:20px;
-      margin-bottom:14px;
-    }
-    .mock-line{height:10px;width:80%;border-radius:999px;background:rgba(255,255,255,.18)}
-    .floating-card{
+    .floating-note{
       position:absolute;
-      padding:14px 16px;
+      background:rgba(255,255,255,.96);
+      color:var(--text);
       border-radius:18px;
-      background:rgba(8,18,38,.82);
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow:0 18px 45px rgba(0,0,0,.32);
-      backdrop-filter:blur(10px);
-      animation:bob 4s ease-in-out infinite;
+      box-shadow:0 18px 40px rgba(0,0,0,.18);
+      padding:14px 16px;
+      z-index:3;
+      min-width:145px;
     }
-    .floating-card.one{left:0;top:44px}
-    .floating-card.two{right:6px;bottom:72px;animation-delay:-1.4s}
-    .floating-card.three{left:28px;bottom:6px;animation-delay:-2.4s}
-    @keyframes bob{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-12px)}
+    .floating-note strong{
+      display:block;
+      font-size:15px;
     }
-    .floating-card strong{display:block}
-    .floating-card span{color:var(--muted);font-size:13px}
+    .floating-note span{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .note1{left:5px;top:30px}
+    .note2{right:0;top:80px}
+    .note3{left:30px;bottom:22px}
 
-    .wave{
+    .scene{
+      width:min(100%,520px);
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:32px;
+      padding:24px;
+      box-shadow:0 30px 70px rgba(0,0,0,.24);
+      backdrop-filter:blur(14px);
+    }
+    .scene svg{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .hero-wave{
       position:absolute;
       left:0;right:0;bottom:-1px;
       line-height:0;
-      z-index:1;
     }
-    .wave svg{display:block;width:100%;height:120px}
-    .wave path{fill:#071427}
+    .hero-wave svg{display:block;width:100%;height:110px}
+    .hero-wave path{fill:var(--light)}
 
-    .trust{
+    /* STATS */
+    .stats{
+      margin-top:-44px;
+      position:relative;
+      z-index:5;
+    }
+    .stats-grid{
       display:grid;
       grid-template-columns:repeat(4,1fr);
-      gap:14px;
-      margin-top:24px;
+      gap:18px;
     }
-    .trust-item{
-      padding:18px;
-      border-radius:20px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.045);
+    .stat{
+      background:#fff;
+      border-radius:22px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      border:1px solid #eaf0f8;
     }
-    .trust-item strong{display:block;font-size:20px}
-    .trust-item span{color:var(--muted);font-size:14px}
+    .stat strong{
+      display:block;
+      font-size:26px;
+      line-height:1;
+      margin-bottom:8px;
+    }
+    .stat span{
+      color:var(--muted);
+      font-size:14px;
+    }
 
-    section{padding-top:50px}
-    .section-head{
+    /* HEADINGS */
+    .section-top{
       display:flex;
       justify-content:space-between;
       align-items:end;
       gap:20px;
-      margin-bottom:22px;
       flex-wrap:wrap;
+      margin-bottom:26px;
     }
-    h2{font-size:clamp(30px,4vw,46px);line-height:1.05;margin:0;letter-spacing:-1px}
-    .section-copy{color:var(--muted);max-width:720px;margin:8px 0 0}
+    h2{
+      margin:0;
+      font-size:clamp(30px,4vw,48px);
+      line-height:1.03;
+      letter-spacing:-1px;
+    }
+    .section-copy{
+      max-width:720px;
+      color:var(--muted);
+      margin:10px 0 0;
+      font-size:18px;
+    }
 
-    .product-grid{
+    /* PRODUCT CARDS */
+    .products{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:22px;
     }
     .product-card{
-      position:relative;
-      overflow:hidden;
-      min-height:560px;
+      background:#fff;
       border-radius:30px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
-      box-shadow:0 20px 55px rgba(0,0,0,.28);
-      transition:.28s ease;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      border:1px solid #e7edf7;
+      transition:.25s ease;
     }
     .product-card:hover{
-      transform:translateY(-7px);
-      border-color:rgba(68,199,255,.42);
-      box-shadow:0 28px 80px rgba(0,0,0,.36);
+      transform:translateY(-6px);
+      box-shadow:0 28px 60px rgba(14,31,53,.16);
     }
-    .product-visual{
-      height:235px;
-      padding:22px;
+    .visual{
+      padding:24px;
+      min-height:235px;
       display:grid;
       place-items:center;
-      background:
-        radial-gradient(circle at 30% 20%,rgba(255,255,255,.20),transparent 28%),
-        linear-gradient(135deg,rgba(68,199,255,.16),rgba(139,92,246,.14));
-      border-bottom:1px solid var(--line);
+      border-bottom:1px solid #edf2f9;
+      position:relative;
+      overflow:hidden;
     }
-    .cover{
-      width:210px;
-      height:150px;
-      border-radius:22px;
-      padding:18px;
-      background:linear-gradient(160deg,#0b1732,#102a56);
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow:0 22px 55px rgba(0,0,0,.34);
-      transform:rotate(-3deg);
+    .visual.cv{
+      background:linear-gradient(135deg,#eef7ff,#daf1ff);
     }
-    .cover.deal{background:linear-gradient(160deg,#0d2036,#064e3b)}
-    .cover.biz{background:linear-gradient(160deg,#180f35,#3b1b72)}
-    .cover-icon{
-      width:48px;height:48px;border-radius:17px;
-      display:grid;place-items:center;
-      background:rgba(255,255,255,.12);
-      font-size:28px;
-      margin-bottom:18px;
+    .visual.deal{
+      background:linear-gradient(135deg,#ecfff7,#d6fff0);
     }
-    .cover-title{font-weight:1000;font-size:24px;line-height:1.05}
-    .cover-sub{color:rgba(255,255,255,.70);font-size:13px;margin-top:8px}
-    .product-content{padding:24px}
+    .visual.biz{
+      background:linear-gradient(135deg,#f3efff,#e6dcff);
+    }
+
+    .card-body{
+      padding:24px;
+    }
     .tag{
-      display:inline-flex;
-      padding:7px 11px;
+      display:inline-block;
+      padding:6px 10px;
       border-radius:999px;
-      background:rgba(68,199,255,.10);
-      color:#d8f5ff;
-      border:1px solid rgba(68,199,255,.18);
       font-size:12px;
-      margin-bottom:13px;
+      font-weight:800;
+      margin-bottom:12px;
+      background:#eef6ff;
+      color:#2c6297;
     }
-    .product-content h3{font-size:34px;margin:0 0 8px;letter-spacing:-.7px}
-    .product-content p{color:var(--muted);margin:0 0 16px}
-    .feature-list{display:grid;gap:9px;margin:18px 0 22px}
+    .card-body h3{
+      font-size:34px;
+      margin:0 0 10px;
+      line-height:1;
+      letter-spacing:-.8px;
+    }
+    .card-body p{
+      color:var(--muted);
+      margin:0 0 16px;
+      min-height:84px;
+    }
+    .feature-list{
+      display:grid;
+      gap:9px;
+      margin-bottom:22px;
+    }
     .feature{
-      display:flex;gap:10px;align-items:flex-start;
-      color:#dce9fb;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:#30435c;
       font-size:15px;
     }
-    .checkmark{
-      min-width:22px;height:22px;border-radius:8px;
+    .check{
+      width:22px;height:22px;border-radius:8px;
       display:grid;place-items:center;
-      background:rgba(109,247,193,.13);
+      background:#eafaf4;
       color:var(--green);
       font-weight:900;
+      flex:0 0 22px;
     }
-    .shop-button{
+    .shop-link{
       display:flex;
       justify-content:center;
       align-items:center;
-      width:100%;
       text-decoration:none;
-      padding:14px 18px;
+      width:100%;
+      padding:14px 16px;
       border-radius:16px;
       font-weight:900;
-      background:linear-gradient(135deg,var(--blue),#78ddff);
-      color:#03101f;
+      background:linear-gradient(135deg,var(--blue2),var(--blue));
+      color:#06213a;
     }
 
-    .featured{
+    /* FEATURED */
+    .featured-box{
       display:grid;
-      grid-template-columns:.9fr 1.1fr;
-      gap:24px;
+      grid-template-columns:1.05fr .95fr;
+      gap:26px;
       align-items:center;
-      border:1px solid var(--line);
+      background:#fff;
       border-radius:34px;
-      padding:28px;
-      background:
-        radial-gradient(circle at 15% 20%,rgba(109,247,193,.12),transparent 28%),
-        linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
       box-shadow:var(--shadow);
+      border:1px solid #e7edf7;
+      padding:28px;
       overflow:hidden;
     }
     .featured-art{
-      min-height:330px;
+      min-height:370px;
       border-radius:28px;
-      border:1px solid var(--line);
-      background:
-        radial-gradient(circle at 30% 30%,rgba(109,247,193,.22),transparent 30%),
-        linear-gradient(145deg,#051423,#0b2d2b);
+      background:linear-gradient(135deg,#0f2d36,#11495e);
+      position:relative;
       display:grid;
       place-items:center;
-      position:relative;
       overflow:hidden;
     }
-    .proposal-sheet{
-      width:250px;
-      height:310px;
+    .featured-art:before{
+      content:"";
+      position:absolute;
+      width:320px;height:320px;border-radius:50%;
+      background:radial-gradient(circle,rgba(255,255,255,.15),transparent 68%);
+      top:-70px;right:-70px;
+    }
+    .sheet{
+      width:255px;
+      height:320px;
+      background:#fff;
       border-radius:24px;
-      background:linear-gradient(180deg,#f8fafc,#cbd5e1);
-      color:#0f172a;
+      box-shadow:0 24px 60px rgba(0,0,0,.24);
       padding:22px;
-      box-shadow:0 26px 60px rgba(0,0,0,.35);
-      transform:rotate(4deg);
+      transform:rotate(-6deg);
       position:relative;
       z-index:2;
     }
-    .proposal-sheet h4{margin:0 0 16px;font-size:25px}
-    .sheet-line{height:10px;border-radius:999px;background:#94a3b8;margin:10px 0}
-    .sheet-line.a{width:90%}.sheet-line.b{width:70%}.sheet-line.c{width:82%}
-    .price-pill{
+    .sheet .topline{
+      width:74%;
+      height:18px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--green),#6ee7b7);
+      margin-bottom:18px;
+    }
+    .sheet .row{
+      height:10px;
+      border-radius:999px;
+      background:#cbd5e1;
+      margin:11px 0;
+    }
+    .sheet .r1{width:92%}
+    .sheet .r2{width:74%}
+    .sheet .r3{width:84%}
+    .sheet .r4{width:68%}
+    .price-chip{
       position:absolute;
-      right:20px;
-      bottom:22px;
+      right:18px;
+      bottom:18px;
       background:#16a34a;
-      color:white;
-      padding:10px 14px;
+      color:#fff;
+      padding:10px 13px;
       border-radius:999px;
       font-weight:900;
+      font-size:14px;
     }
-    .featured h2{margin-bottom:12px}
-    .featured p{color:var(--muted)}
-    .featured-points{
+    .feature-points{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
-      margin:20px 0 24px;
+      margin:22px 0 24px;
     }
     .point{
+      background:#f8fbff;
+      border:1px solid #e5eef8;
+      border-radius:18px;
       padding:14px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
     }
-    .point strong{display:block}
-    .point span{font-size:14px;color:var(--muted)}
+    .point strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .point span{
+      color:var(--muted);
+      font-size:14px;
+    }
 
-    .closing{
-      text-align:center;
-      padding:54px 26px;
-      border:1px solid var(--line);
+    /* CTA FOOT */
+    .big-cta{
+      background:linear-gradient(135deg,var(--navy),#14355a);
+      color:#fff;
       border-radius:34px;
-      background:
-        radial-gradient(circle at 50% 0%,rgba(68,199,255,.15),transparent 35%),
-        linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
+      padding:54px 26px;
+      text-align:center;
+      overflow:hidden;
+      position:relative;
     }
-    .closing p{color:var(--muted);max-width:740px;margin:12px auto 26px}
+    .big-cta:before{
+      content:"";
+      position:absolute;
+      inset:auto auto -120px -100px;
+      width:280px;height:280px;border-radius:50%;
+      background:radial-gradient(circle,rgba(77,212,255,.18),transparent 68%);
+    }
+    .big-cta:after{
+      content:"";
+      position:absolute;
+      inset:-90px -70px auto auto;
+      width:260px;height:260px;border-radius:50%;
+      background:radial-gradient(circle,rgba(124,92,255,.18),transparent 68%);
+    }
+    .big-cta h2{position:relative;z-index:1}
+    .big-cta p{
+      position:relative;
+      z-index:1;
+      max-width:760px;
+      margin:14px auto 26px;
+      color:#d9e7f7;
+      font-size:18px;
+    }
+    .big-cta .hero-cta{
+      justify-content:center;
+      position:relative;
+      z-index:1;
+      margin-top:0;
+    }
 
     footer{
-      padding:28px 0 0;
-      margin-top:40px;
+      padding:30px 0 40px;
       color:var(--muted);
-      border-top:1px solid var(--line);
       font-size:14px;
       display:flex;
       justify-content:space-between;
-      gap:16px;
+      gap:14px;
       flex-wrap:wrap;
     }
 
-    @media(max-width:980px){
-      .hero-grid,.product-grid,.featured,.trust{grid-template-columns:1fr}
-      .hero-grid{padding:52px 22px 100px}
-      .showcase{min-height:460px}
-      .featured-points{grid-template-columns:1fr}
-      .nav{align-items:flex-start;flex-direction:column}
+    /* Responsive */
+    @media (max-width:1024px){
+      .hero-grid,.products,.featured-box,.stats-grid{
+        grid-template-columns:1fr;
+      }
+      .hero-grid{
+        padding:58px 0 112px;
+      }
+      .stats{
+        margin-top:30px;
+      }
+      .card-body p{
+        min-height:auto;
+      }
     }
 
-    @media(max-width:560px){
-      .floating-card{display:none}
-      .hero-stats{grid-template-columns:1fr}
-      .trust{grid-template-columns:1fr}
-      .product-card{min-height:auto}
-      .featured{padding:18px}
-      .proposal-sheet{width:220px;height:280px}
+    @media (max-width:640px){
+      .nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .nav-links{
+        width:100%;
+      }
+      .nav-links a{
+        padding:8px 12px;
+      }
+      .hero-visual{
+        min-height:420px;
+      }
+      .floating-note{
+        display:none;
+      }
+      .feature-points{
+        grid-template-columns:1fr;
+      }
+      .section{
+        padding:56px 0;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="noise"></div>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
 
-  <main class="wrap">
-    <nav class="nav">
-      <div class="brand">
-        <div class="logo">T</div>
-        <div>TransDelta Offline Business Tools</div>
-      </div>
+  <div class="nav-shell">
+    <div class="wrap">
+      <nav class="nav">
+        <div class="brand">
+          <div class="logo">T</div>
+          <div>TransDelta Offline Business Tools</div>
+        </div>
 
-      <div class="nav-links">
-        <a href="#products">Products</a>
-        <a href="#featured">Featured</a>
-        <a href="#links">Direct links</a>
-      </div>
-    </nav>
+        <div class="nav-links">
+          <a href="#products">Products</a>
+          <a href="#featured">Featured</a>
+          <a href="#links">Links</a>
+        </div>
+      </nav>
+    </div>
+  </div>
 
-    <header class="hero">
+  <header class="hero">
+    <div class="wrap">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">
-            <span class="pulse"></span>
-            Premium offline tools for practical business work
-          </span>
+          <div class="pill">
+            <span class="dot"></span>
+            Practical tools for real work
+          </div>
 
-          <h1>Simple tools that look serious, feel fast, and sell clearly.</h1>
+          <h1>Offline business tools that look like real products.</h1>
 
           <p class="lead">
-            CVCraft, DealCraft and BizBoard are focused offline-style tools for resumes,
-            proposals, quotes and local business tracking — without subscriptions,
-            accounts or complicated cloud software.
+            CVCraft, DealCraft and BizBoard are simple tools for resumes,
+            proposals, quotes and local business tracking — presented like a
+            professional product suite, not just a list of links.
           </p>
 
-          <div class="cta">
-            <a class="button primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Shop DealCraft</a>
-            <a class="button secondary" href="#products">View all products</a>
+          <div class="hero-cta">
+            <a class="btn primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Start with DealCraft</a>
+            <a class="btn secondary" href="#products">View all products</a>
           </div>
 
           <div class="hero-badges">
-            <span class="mini-badge">No subscription</span>
-            <span class="mini-badge">One-time download</span>
-            <span class="mini-badge">Built for freelancers</span>
-            <span class="mini-badge">Small-business friendly</span>
+            <span>No subscription</span>
+            <span>One-time download</span>
+            <span>Built for freelancers</span>
+            <span>Small-business friendly</span>
           </div>
         </div>
 
-        <div class="showcase" aria-label="Product mockup">
-          <div class="floating-card one">
+        <div class="hero-visual">
+          <div class="floating-note note1">
             <strong>CVCraft</strong>
-            <span>Resume builder</span>
+            <span>Clean resume workflow</span>
           </div>
-
-          <div class="floating-card two">
+          <div class="floating-note note2">
             <strong>DealCraft</strong>
             <span>Proposal & quote builder</span>
           </div>
-
-          <div class="floating-card three">
+          <div class="floating-note note3">
             <strong>BizBoard</strong>
-            <span>Local dashboard</span>
+            <span>Simple business overview</span>
           </div>
 
-          <div class="device">
-            <div class="screen">
-              <div class="screen-top">
-                <span class="dot-red"></span>
-                <span class="dot-yellow"></span>
-                <span class="dot-green"></span>
-              </div>
-              <div class="screen-body">
-                <div class="fake-title"></div>
-                <div class="fake-row w1"></div>
-                <div class="fake-row w2"></div>
-                <div class="fake-row w3"></div>
+          <div class="scene">
+            <svg viewBox="0 0 560 430" xmlns="http://www.w3.org/2000/svg" aria-label="Workspace illustration">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#6fe3ff"/>
+                  <stop offset="100%" stop-color="#7c5cff"/>
+                </linearGradient>
+                <linearGradient id="g2" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#3fd0ff"/>
+                  <stop offset="100%" stop-color="#22c18b"/>
+                </linearGradient>
+              </defs>
 
-                <div class="mock-grid">
-                  <div class="mock-card">
-                    <div class="mock-icon">📄</div>
-                    <div class="mock-line"></div>
-                  </div>
-                  <div class="mock-card">
-                    <div class="mock-icon">💼</div>
-                    <div class="mock-line"></div>
-                  </div>
-                  <div class="mock-card">
-                    <div class="mock-icon">📊</div>
-                    <div class="mock-line"></div>
-                  </div>
-                  <div class="mock-card">
-                    <div class="mock-icon">⚡</div>
-                    <div class="mock-line"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <!-- background cards -->
+              <rect x="35" y="60" rx="22" ry="22" width="120" height="86" fill="rgba(255,255,255,.11)"/>
+              <rect x="400" y="50" rx="22" ry="22" width="120" height="86" fill="rgba(255,255,255,.11)"/>
+              <rect x="420" y="255" rx="22" ry="22" width="105" height="86" fill="rgba(255,255,255,.11)"/>
+
+              <!-- desk -->
+              <rect x="85" y="310" rx="26" ry="26" width="390" height="52" fill="#103258"/>
+              <rect x="110" y="358" rx="10" ry="10" width="18" height="40" fill="#1d4d7e"/>
+              <rect x="430" y="358" rx="10" ry="10" width="18" height="40" fill="#1d4d7e"/>
+
+              <!-- laptop -->
+              <rect x="190" y="165" rx="18" ry="18" width="180" height="115" fill="#f8fbff"/>
+              <rect x="203" y="178" rx="12" ry="12" width="154" height="88" fill="#dff3ff"/>
+              <rect x="235" y="195" rx="6" ry="6" width="86" height="12" fill="url(#g1)"/>
+              <rect x="220" y="217" rx="5" ry="5" width="120" height="9" fill="#9eb8d5"/>
+              <rect x="220" y="233" rx="5" ry="5" width="92" height="9" fill="#9eb8d5"/>
+              <rect x="230" y="276" rx="12" ry="12" width="100" height="12" fill="#bcccdc"/>
+
+              <!-- person -->
+              <circle cx="120" cy="190" r="33" fill="#f3c7a7"/>
+              <path d="M95 182c6-26 44-33 58-10 4 7 4 17 1 23-7-5-15-6-21-6-11 0-20 4-30 11-9-9-12-9-8-18z" fill="#0f2038"/>
+              <rect x="82" y="225" rx="28" ry="28" width="88" height="70" fill="url(#g2)"/>
+              <rect x="150" y="250" rx="16" ry="16" width="90" height="16" fill="#f3c7a7" transform="rotate(-8 150 250)"/>
+              <rect x="90" y="295" rx="10" ry="10" width="28" height="48" fill="#173861"/>
+              <rect x="126" y="295" rx="10" ry="10" width="28" height="48" fill="#173861"/>
+
+              <!-- floating CV sheet -->
+              <g transform="translate(52 78)">
+                <rect x="0" y="0" width="85" height="110" rx="18" fill="#ffffff"/>
+                <rect x="14" y="16" width="42" height="10" rx="5" fill="url(#g1)"/>
+                <rect x="14" y="38" width="56" height="8" rx="4" fill="#bcccdc"/>
+                <rect x="14" y="53" width="48" height="8" rx="4" fill="#bcccdc"/>
+                <rect x="14" y="68" width="60" height="8" rx="4" fill="#bcccdc"/>
+                <circle cx="63" cy="87" r="12" fill="#dff3ff"/>
+              </g>
+
+              <!-- floating proposal -->
+              <g transform="translate(408 66)">
+                <rect x="0" y="0" width="90" height="106" rx="18" fill="#ffffff"/>
+                <rect x="16" y="14" width="48" height="10" rx="5" fill="#22c18b"/>
+                <rect x="16" y="37" width="60" height="8" rx="4" fill="#cbd5e1"/>
+                <rect x="16" y="52" width="52" height="8" rx="4" fill="#cbd5e1"/>
+                <rect x="16" y="67" width="58" height="8" rx="4" fill="#cbd5e1"/>
+                <rect x="16" y="84" width="36" height="12" rx="6" fill="#d1fae5"/>
+              </g>
+
+              <!-- floating dashboard -->
+              <g transform="translate(430 267)">
+                <rect x="0" y="0" width="82" height="68" rx="18" fill="#ffffff"/>
+                <rect x="14" y="18" width="10" height="28" rx="4" fill="#7c5cff"/>
+                <rect x="29" y="10" width="10" height="36" rx="4" fill="#45c8ff"/>
+                <rect x="44" y="22" width="10" height="24" rx="4" fill="#22c18b"/>
+                <path d="M12 53H68" stroke="#d7e2ee" stroke-width="4" stroke-linecap="round"/>
+              </g>
+            </svg>
           </div>
         </div>
-      </div>
-
-      <div class="wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,32L48,42.7C96,53,192,75,288,80C384,85,480,75,576,64C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,120L0,120Z"></path>
-        </svg>
-      </div>
-    </header>
-
-    <div class="trust">
-      <div class="trust-item">
-        <strong>3 Tools</strong>
-        <span>CVs, proposals and business tracking</span>
-      </div>
-      <div class="trust-item">
-        <strong>0 Monthly Fees</strong>
-        <span>Positioned around one-time use</span>
-      </div>
-      <div class="trust-item">
-        <strong>Simple Setup</strong>
-        <span>Clear product links through Gumroad</span>
-      </div>
-      <div class="trust-item">
-        <strong>Practical Audience</strong>
-        <span>Job seekers, freelancers and small businesses</span>
       </div>
     </div>
 
-    <section id="products">
-      <div class="section-head">
+    <div class="hero-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,48L48,53.3C96,59,192,69,288,80C384,91,480,101,576,90.7C672,80,768,48,864,37.3C960,27,1056,37,1152,53.3C1248,69,1344,91,1392,101.3L1440,112L1440,120L0,120Z"></path>
+      </svg>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat">
+          <strong>3</strong>
+          <span>focused products in one suite</span>
+        </div>
+        <div class="stat">
+          <strong>0</strong>
+          <span>monthly subscription needed</span>
+        </div>
+        <div class="stat">
+          <strong>1×</strong>
+          <span>download once, use anytime</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>public product hub on GitHub Pages</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="section-top">
         <div>
-          <h2>Shop the product suite</h2>
+          <h2>Three products. Clear visuals. Better first impression.</h2>
           <p class="section-copy">
-            A cleaner product presentation makes the three Gumroad products feel like a real shop,
-            not just three random links.
+            Now the page feels more like a real storefront. Each product has its own visual block,
+            stronger presence and a cleaner sales structure.
           </p>
         </div>
       </div>
 
-      <div class="product-grid">
+      <div class="products">
+
         <article class="product-card">
-          <div class="product-visual">
-            <div class="cover">
-              <div class="cover-icon">📄</div>
-              <div class="cover-title">CVCraft</div>
-              <div class="cover-sub">Offline Resume & CV Builder</div>
-            </div>
+          <div class="visual cv">
+            <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;height:auto">
+              <rect x="78" y="22" width="150" height="176" rx="22" fill="#fff" stroke="#dbe8f5"/>
+              <rect x="96" y="42" width="72" height="12" rx="6" fill="#42c8ff"/>
+              <rect x="96" y="68" width="110" height="10" rx="5" fill="#bfd2e5"/>
+              <rect x="96" y="86" width="96" height="10" rx="5" fill="#bfd2e5"/>
+              <rect x="96" y="104" width="102" height="10" rx="5" fill="#bfd2e5"/>
+              <circle cx="190" cy="148" r="26" fill="#dff4ff"/>
+              <circle cx="190" cy="142" r="10" fill="#71cfff"/>
+              <path d="M173 162c7-10 26-10 34 0" stroke="#71cfff" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="72" cy="154" r="28" fill="#f1c6a5"/>
+              <rect x="50" y="183" width="48" height="20" rx="10" fill="#2f72c9"/>
+            </svg>
           </div>
-          <div class="product-content">
+          <div class="card-body">
             <span class="tag">CV / Resume</span>
             <h3>CVCraft</h3>
-            <p>
-              Create clean resumes and CVs offline for job applications, students,
-              freelancers and career changers.
-            </p>
+            <p>Offline Resume & CV Builder for job seekers, students, freelancers and career changers who want a cleaner application workflow.</p>
             <div class="feature-list">
-              <div class="feature"><span class="checkmark">✓</span><span>Professional CV positioning</span></div>
-              <div class="feature"><span class="checkmark">✓</span><span>Useful for job seekers and students</span></div>
-              <div class="feature"><span class="checkmark">✓</span><span>No subscription angle</span></div>
+              <div class="feature"><span class="check">✓</span><span>Clear CV-focused positioning</span></div>
+              <div class="feature"><span class="check">✓</span><span>Good fit for applications and resumes</span></div>
+              <div class="feature"><span class="check">✓</span><span>Simple no-subscription angle</span></div>
             </div>
-            <a class="shop-button" href="https://transdelta.gumroad.com/l/cvcraft">Open CVCraft</a>
+            <a class="shop-link" href="https://transdelta.gumroad.com/l/cvcraft">Open CVCraft</a>
           </div>
         </article>
 
         <article class="product-card">
-          <div class="product-visual">
-            <div class="cover deal">
-              <div class="cover-icon">💼</div>
-              <div class="cover-title">DealCraft</div>
-              <div class="cover-sub">Proposal & Quote Builder</div>
-            </div>
+          <div class="visual deal">
+            <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;height:auto">
+              <rect x="72" y="28" width="154" height="170" rx="22" fill="#fff" stroke="#dbe8f5"/>
+              <rect x="92" y="46" width="86" height="12" rx="6" fill="#27c48f"/>
+              <rect x="92" y="72" width="102" height="10" rx="5" fill="#c9d5df"/>
+              <rect x="92" y="90" width="94" height="10" rx="5" fill="#c9d5df"/>
+              <rect x="92" y="108" width="108" height="10" rx="5" fill="#c9d5df"/>
+              <rect x="92" y="136" width="60" height="24" rx="12" fill="#d9f9ec"/>
+              <circle cx="76" cy="170" r="18" fill="#f2c8a9"/>
+              <circle cx="115" cy="170" r="18" fill="#f2c8a9"/>
+              <path d="M64 168l24 0 9 7 8-7 28 0" stroke="#2f72c9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-          <div class="product-content">
+          <div class="card-body">
             <span class="tag">Proposals / Quotes</span>
             <h3>DealCraft</h3>
-            <p>
-              Build cleaner client proposals and quotes for freelance work,
-              consulting and local service businesses.
-            </p>
+            <p>Offline Proposal & Quote Builder for freelancers, consultants and small businesses that want better-looking client offers.</p>
             <div class="feature-list">
-              <div class="feature"><span class="checkmark">✓</span><span>Strongest business use case</span></div>
-              <div class="feature"><span class="checkmark">✓</span><span>Useful for winning client work</span></div>
-              <div class="feature"><span class="checkmark">✓</span><span>Simple offer-building angle</span></div>
+              <div class="feature"><span class="check">✓</span><span>Strongest direct business use case</span></div>
+              <div class="feature"><span class="check">✓</span><span>Good for service providers and freelancers</span></div>
+              <div class="feature"><span class="check">✓</span><span>Easy-to-understand sales message</span></div>
             </div>
-            <a class="shop-button" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Open DealCraft</a>
+            <a class="shop-link" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">Open DealCraft</a>
           </div>
         </article>
 
         <article class="product-card">
-          <div class="product-visual">
-            <div class="cover biz">
-              <div class="cover-icon">📊</div>
-              <div class="cover-title">BizBoard</div>
-              <div class="cover-sub">Local Business Dashboard</div>
-            </div>
+          <div class="visual biz">
+            <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;height:auto">
+              <rect x="54" y="40" width="212" height="142" rx="24" fill="#fff" stroke="#dbe8f5"/>
+              <rect x="74" y="62" width="72" height="12" rx="6" fill="#8b6dff"/>
+              <rect x="74" y="88" width="46" height="58" rx="12" fill="#e8e0ff"/>
+              <rect x="128" y="104" width="46" height="42" rx="12" fill="#d9f3ff"/>
+              <rect x="182" y="76" width="46" height="70" rx="12" fill="#ddfaef"/>
+              <path d="M76 158H242" stroke="#d8e2f1" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="84" cy="176" r="10" fill="#7c5cff"/>
+              <circle cx="112" cy="170" r="10" fill="#44c7ff"/>
+              <circle cx="140" cy="164" r="10" fill="#27c48f"/>
+            </svg>
           </div>
-          <div class="product-content">
+          <div class="card-body">
             <span class="tag">Business Dashboard</span>
             <h3>BizBoard</h3>
-            <p>
-              Organize simple local business information in one clean dashboard
-              for small businesses and local operators.
-            </p>
+            <p>Local Small-Business Dashboard for local operators and small business owners who want a simple overview of important information.</p>
             <div class="feature-list">
-              <div class="feature"><span class="checkmark">✓</span><span>Good for local business owners</span></div>
-              <div class="feature"><span class="checkmark">✓</span><span>Simple overview positioning</span></div>
-              <div class="feature"><span class="checkmark">✓</span><span>No heavy dashboard software</span></div>
+              <div class="feature"><span class="check">✓</span><span>Simple overview positioning</span></div>
+              <div class="feature"><span class="check">✓</span><span>Good for small local operators</span></div>
+              <div class="feature"><span class="check">✓</span><span>No heavy enterprise dashboard feeling</span></div>
             </div>
-            <a class="shop-button" href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">Open BizBoard</a>
+            <a class="shop-link" href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">Open BizBoard</a>
           </div>
         </article>
-      </div>
-    </section>
 
-    <section id="featured">
-      <div class="featured">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="featured">
+    <div class="wrap">
+      <div class="featured-box">
         <div class="featured-art">
-          <div class="proposal-sheet">
-            <h4>Client Proposal</h4>
-            <div class="sheet-line a"></div>
-            <div class="sheet-line b"></div>
-            <div class="sheet-line c"></div>
-            <div class="sheet-line a"></div>
-            <div class="sheet-line b"></div>
-            <div class="price-pill">Ready</div>
+          <div class="sheet">
+            <div class="topline"></div>
+            <div class="row r1"></div>
+            <div class="row r2"></div>
+            <div class="row r3"></div>
+            <div class="row r4"></div>
+            <div class="row r1"></div>
+            <div class="price-chip">Featured</div>
           </div>
         </div>
 
         <div>
-          <span class="tag">Featured product</span>
-          <h2>Start with DealCraft first.</h2>
-          <p>
-            DealCraft has the strongest commercial reason to buy: freelancers and
-            small businesses can use better proposals and quotes to present their
-            services more professionally.
+          <div class="tag">Featured product</div>
+          <h2>DealCraft should stay your lead product.</h2>
+          <p class="section-copy" style="margin-top:12px">
+            Out of the three products, DealCraft has the strongest commercial angle:
+            people can understand quickly why better proposals and quotes can help
+            freelancers and small businesses win work more professionally.
           </p>
 
-          <div class="featured-points">
+          <div class="feature-points">
             <div class="point">
-              <strong>Business buyer</strong>
-              <span>Better fit for people already trying to earn money.</span>
+              <strong>Best first hook</strong>
+              <span>Easy to explain and closer to money-making needs.</span>
             </div>
             <div class="point">
-              <strong>Clear pain</strong>
-              <span>Clients need clean offers, quotes and proposals.</span>
+              <strong>Clear business value</strong>
+              <span>Cleaner client proposals and quotes feel practical.</span>
             </div>
             <div class="point">
-              <strong>Easy message</strong>
-              <span>Create client proposals without complicated software.</span>
+              <strong>Strong free promotion angle</strong>
+              <span>Good product to feature first in free channels.</span>
             </div>
             <div class="point">
-              <strong>Good first push</strong>
-              <span>Best product to promote first in free channels.</span>
+              <strong>Professional impression</strong>
+              <span>Looks serious and useful for service businesses.</span>
             </div>
           </div>
 
-          <a class="button primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">View DealCraft on Gumroad</a>
+          <div class="hero-cta" style="margin-top:0">
+            <a class="btn primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">View DealCraft on Gumroad</a>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="links">
-      <div class="closing">
+  <section class="section" id="links">
+    <div class="wrap">
+      <div class="big-cta">
         <h2>Choose the tool that fits your next task.</h2>
         <p>
-          Resume, proposal, quote or business overview — the suite is built around
-          simple practical work without turning every task into another subscription.
+          Build a resume, create a proposal, prepare a quote or track a small business
+          in a simpler way — without turning every task into another subscription.
         </p>
-        <div class="cta" style="justify-content:center">
-          <a class="button secondary" href="https://transdelta.gumroad.com/l/cvcraft">CVCraft</a>
-          <a class="button primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">DealCraft</a>
-          <a class="button secondary" href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">BizBoard</a>
+        <div class="hero-cta">
+          <a class="btn secondary" href="https://transdelta.gumroad.com/l/cvcraft">CVCraft</a>
+          <a class="btn primary" href="https://transdelta.gumroad.com/l/dealcraft-offline-proposal-builder">DealCraft</a>
+          <a class="btn secondary" href="https://transdelta.gumroad.com/l/bizboard-local-dashboard">BizBoard</a>
         </div>
       </div>
-    </section>
 
-    <footer>
-      <span>TransDelta Offline Business Tools · Public product hub hosted on GitHub Pages.</span>
-      <span>No subscription positioning · CVCraft · DealCraft · BizBoard</span>
-    </footer>
-  </main>
+      <footer>
+        <span>TransDelta Offline Business Tools · GitHub Pages product hub</span>
+        <span>CVCraft · DealCraft · BizBoard</span>
+      </footer>
+    </div>
+  </section>
+
 </body>
 </html>
